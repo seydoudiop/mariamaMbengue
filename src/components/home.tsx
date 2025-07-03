@@ -41,12 +41,7 @@ const Home = () => {
             >
               Commander
             </Link>
-            <Link
-              to="/delivery"
-              className="text-amber-900 hover:text-amber-600 font-medium"
-            >
-              Livraison
-            </Link>
+
             <Link
               to="/contact"
               className="text-amber-900 hover:text-amber-600 font-medium"
@@ -102,8 +97,9 @@ const Home = () => {
             <Button
               variant="outline"
               className="bg-white/10 text-white border-white hover:bg-white/20"
+              onClick={() => window.open("tel:+221774278279", "_self")}
             >
-              <MessageCircle className="mr-2 h-4 w-4" /> Contacter sur WhatsApp
+              <Phone className="mr-2 h-4 w-4" /> Appeler maintenant
             </Button>
           </div>
         </div>
@@ -386,9 +382,11 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="mt-8">
-                  <Button className="bg-green-600 hover:bg-green-700 text-white w-full">
-                    <MessageCircle className="mr-2 h-4 w-4" /> Contacter sur
-                    WhatsApp
+                  <Button
+                    className="bg-green-600 hover:bg-green-700 text-white w-full"
+                    onClick={() => window.open("tel:+221774278279", "_self")}
+                  >
+                    <Phone className="mr-2 h-4 w-4" /> Appeler maintenant
                   </Button>
                 </div>
               </div>
@@ -529,11 +527,7 @@ const Home = () => {
                     Commander
                   </Link>
                 </li>
-                <li>
-                  <Link to="/delivery" className="hover:underline">
-                    Livraison
-                  </Link>
-                </li>
+
                 <li>
                   <Link to="/contact" className="hover:underline">
                     Contact
