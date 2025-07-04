@@ -495,6 +495,8 @@ const Home = () => {
               © 2025 GOURMANDISE BY MARIE
               <br />
               Fait avec amour à Dakar, Sénégal
+              <br />
+              Par Mouhamdou Seydou Diop
             </p>
 
             <div className="flex justify-center space-x-6 mb-8">
