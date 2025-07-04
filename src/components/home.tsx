@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Phone,
@@ -6,441 +6,478 @@ import {
   Instagram,
   Facebook,
   MessageCircle,
+  Heart,
+  Star,
+  Cake,
+  Coffee,
+  Gift,
+  Truck,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import ProductGallery from "./ProductGallery";
 
 const Home = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const testimonials = [
+    {
+      text: "Les cupcakes de GOURMANDISE BY MARIE sont incroyables ! Livraison rapide et un goût inoubliable.",
+      author: "Aissatou D.",
+      rating: 5,
+    },
+    {
+      text: "J'ai commandé un gâteau personnalisé pour l'anniversaire de ma fille : une vraie réussite.",
+      author: "Fatou M.",
+      rating: 5,
+    },
+    {
+      text: "Des beignets dorés et croustillants comme nulle part ailleurs. Je recommande vivement !",
+      author: "Moussa S.",
+      rating: 5,
+    },
+  ];
+
+  const galleryImages = [
+    {
+      src: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+      title: "Gâteau d'anniversaire",
+      description: "Gâteau personnalisé avec décoration sur mesure",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1527904324834-3bda86da6771?w=800&q=80",
+      title: "Beignets croustillants",
+      description: "Beignets dorés et moelleux, spécialité maison",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800&q=80",
+      title: "Tarte aux fruits",
+      description: "Tartelette citron mangue aux fruits frais",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&q=80",
+      title: "Cupcake au chocolat",
+      description: "Cupcakes maison avec glaçage artisanal",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80",
+      title: "Cupcakes vanille",
+      description: "Délicieux cupcakes à la vanille",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=800&q=80",
+      title: "Tarte au citron",
+      description: "Tarte au citron meringuée",
+    },
+  ];
+
+  useEffect(() => {
+    setIsVisible(true);
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md shadow-sm">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <h1 className="text-2xl font-serif font-bold text-amber-800">
-              Mariama Pâtisserie
+            <h1 className="text-2xl font-serif font-bold text-rose-800">
+              GOURMANDISE BY MARIE
             </h1>
           </div>
-          <nav className="hidden md:flex space-x-6">
-            <Link
-              to="/"
-              className="text-amber-900 hover:text-amber-600 font-medium"
+          <nav className="hidden md:flex space-x-8">
+            <a
+              href="#accueil"
+              className="text-rose-900 hover:text-rose-600 font-medium transition-colors"
             >
               Accueil
-            </Link>
-            <Link
-              to="/products"
-              className="text-amber-900 hover:text-amber-600 font-medium"
+            </a>
+            <a
+              href="#apropos"
+              className="text-rose-900 hover:text-rose-600 font-medium transition-colors"
             >
-              Nos Produits
-            </Link>
-            <Link
-              to="/order"
-              className="text-amber-900 hover:text-amber-600 font-medium"
+              À propos
+            </a>
+            <a
+              href="#creations"
+              className="text-rose-900 hover:text-rose-600 font-medium transition-colors"
             >
-              Commander
-            </Link>
-
-            <Link
-              to="/contact"
-              className="text-amber-900 hover:text-amber-600 font-medium"
+              Créations
+            </a>
+            <a
+              href="#services"
+              className="text-rose-900 hover:text-rose-600 font-medium transition-colors"
+            >
+              Services
+            </a>
+            <a
+              href="#contact"
+              className="text-rose-900 hover:text-rose-600 font-medium transition-colors"
             >
               Contact
-            </Link>
+            </a>
           </nav>
-          <Button variant="outline" className="md:hidden" size="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
+          <Button
+            onClick={() => window.open("https://wa.me/221774278279", "_blank")}
+            className="bg-green-600 hover:bg-green-700 text-white hidden md:flex"
+          >
+            <MessageCircle className="mr-2 h-4 w-4" />
+            WhatsApp
           </Button>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+      <section
+        id="accueil"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200&q=80')",
+              "url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1600&q=80')",
           }}
         >
-          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
         </div>
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-start">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">
-            Délices Sucrés
-            <br />
-            Faits Maison
-          </h2>
-          <p className="text-xl text-white/90 max-w-lg mb-8">
-            Des pâtisseries artisanales préparées avec passion, soin et
-            authenticité à Dakar, Sénégal.
+
+        <div
+          className={`relative z-10 text-center px-4 transform transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+        >
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 tracking-wide">
+            GOURMANDISE BY MARIE
+          </h1>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl text-rose-200 mb-4 font-light">
+            Pâtisseries Artisanales – Dakar, Sénégal
+          </h3>
+          <p className="text-xl md:text-2xl text-white/90 italic mb-12 font-light">
+            Fait main. Fait avec amour.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white">
-              Découvrir nos produits
-            </Button>
-            <Button
-              variant="outline"
-              className="bg-white/10 text-white border-white hover:bg-white/20"
-              onClick={() => window.open("tel:+221774278279", "_self")}
-            >
-              <Phone className="mr-2 h-4 w-4" /> Appeler maintenant
-            </Button>
+
+          <Button
+            onClick={() => window.open("https://wa.me/221774278279", "_blank")}
+            className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+          >
+            <MessageCircle className="mr-3 h-5 w-5" />
+            Commander sur WhatsApp
+          </Button>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 bg-white">
+      {/* À propos de Mariama */}
+      <section
+        id="apropos"
+        className="py-20 bg-gradient-to-br from-rose-50 to-amber-50"
+      >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-amber-800 text-center mb-8">
-            À propos
-          </h2>
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg text-gray-700 mb-6">
-              Bienvenue chez Mariama Pâtisserie, où chaque douceur est préparée
-              avec passion, soin, et authenticité. Spécialisée dans la vente de
-              pâtisseries artisanales, Mariama vous régale avec des créations
-              uniques et délicieuses.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-amber-800">
-                  Cupcakes et muffins
-                </h3>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
-                    <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1" />
-                    <path d="M2 21h20" />
-                    <path d="M7 8v2" />
-                    <path d="M12 8v2" />
-                    <path d="M17 8v2" />
-                    <path d="M7 4h.01" />
-                    <path d="M12 4h.01" />
-                    <path d="M17 4h.01" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-amber-800">
-                  Gâteaux personnalisés
-                </h3>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                    <line x1="9" y1="9" x2="9.01" y2="9" />
-                    <line x1="15" y1="9" x2="15.01" y2="9" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-amber-800">Beignets</h3>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-                  </svg>
-                </div>
-                <h3 className="font-medium text-amber-800">Tartes fruitées</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-400 to-amber-400 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform duration-300"></div>
+              <img
+                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
+                alt="Mariama en cuisine"
+                className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+
+            {/* Texte */}
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-rose-800 mb-6">
+                À propos de moi
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-rose-400 to-amber-400 rounded-full mb-8"></div>
+
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Chez GOURMANDISE BY MARIE, chaque douceur est une œuvre d'art.
+              </p>
+
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Je suis une passionnée de pâtisserie artisanale, et je combine
+                tradition sénégalaise et savoir-faire français pour créer des
+                moments sucrés inoubliables.
+              </p>
+
+              <div className="flex items-center space-x-4 pt-6">
+                <Heart className="h-8 w-8 text-rose-500" />
+                <span className="text-lg font-medium text-rose-800">
+                  Fait avec amour depuis 2020
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Product Gallery Section */}
-      <section className="py-16 bg-amber-50">
+      {/* Galerie - Nos créations */}
+      <section id="creations" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-amber-800 text-center mb-2">
-            Nos Créations
-          </h2>
-          <p className="text-center text-gray-600 mb-12">
-            Découvrez nos délicieuses pâtisseries faites avec amour
-          </p>
-          <ProductGallery />
-          <div className="text-center mt-12">
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white">
-              Voir tous nos produits
-            </Button>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-rose-800 mb-4">
+              Nos Créations
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-rose-400 to-amber-400 rounded-full mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Découvrez nos délicieuses pâtisseries faites avec amour et passion
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Services Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-amber-800 text-center mb-12">
-            Nos Services
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 mx-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
-                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-amber-800 text-center mb-2">
-                  Commandes personnalisées
-                </h3>
-                <p className="text-gray-600 text-center">
-                  Des créations sur mesure selon vos goûts et préférences.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 mx-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2v4" />
-                    <path d="m4.93 10.93 1.41 1.41" />
-                    <path d="M2 18h2" />
-                    <path d="M20 18h2" />
-                    <path d="m19.07 10.93-1.41 1.41" />
-                    <path d="M22 22H2" />
-                    <path d="m8 22 4-11 4 11" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-amber-800 text-center mb-2">
-                  Ingrédients frais
-                </h3>
-                <p className="text-gray-600 text-center">
-                  Uniquement des produits de qualité pour des saveurs
-                  authentiques.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 mx-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="m9 12 2 2 4-4" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-amber-800 text-center mb-2">
-                  Livraison possible
-                </h3>
-                <p className="text-gray-600 text-center">
-                  Service de livraison disponible selon votre localisation à
-                  Dakar.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 mx-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#d97706"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-amber-800 text-center mb-2">
-                  Offres spéciales
-                </h3>
-                <p className="text-gray-600 text-center">
-                  Pour vos événements: mariages, anniversaires, baptêmes et
-                  plus.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 bg-amber-100">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-amber-800 text-center mb-12">
-            Contactez-nous
-          </h2>
-          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="md:w-1/2">
-                <h3 className="text-xl font-medium text-amber-800 mb-4">
-                  Informations de contact
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <Phone className="h-5 w-5 text-amber-600 mr-3" />
-                    <p className="text-gray-700">77 427 82 79</p>
+          {/* Masonry Gallery */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {galleryImages.map((image, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <img
+                  src={image.src}
+                  alt={image.title}
+                  className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-xl font-bold mb-2">{image.title}</h3>
+                    <p className="text-sm opacity-90">{image.description}</p>
                   </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-5 w-5 text-amber-600 mr-3" />
-                    <p className="text-gray-700">Dakar, Sénégal</p>
-                  </div>
-                  <div className="flex items-center">
-                    <Instagram className="h-5 w-5 text-amber-600 mr-3" />
-                    <p className="text-gray-700">@mariama_patisserie</p>
-                  </div>
-                  <div className="flex items-center">
-                    <Facebook className="h-5 w-5 text-amber-600 mr-3" />
-                    <p className="text-gray-700">Mariama Délices</p>
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <Button
-                    className="bg-green-600 hover:bg-green-700 text-white w-full"
-                    onClick={() => window.open("tel:+221774278279", "_self")}
-                  >
-                    <Phone className="mr-2 h-4 w-4" /> Appeler maintenant
-                  </Button>
                 </div>
               </div>
-              <div className="md:w-1/2">
-                <h3 className="text-xl font-medium text-amber-800 mb-4">
-                  Envoyez-nous un message
-                </h3>
-                <form className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Nom
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="Votre nom"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="Votre email"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="Votre message"
-                    ></textarea>
-                  </div>
-                  <Button className="bg-amber-600 hover:bg-amber-700 text-white w-full">
-                    Envoyer
-                  </Button>
-                </form>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Nos Services */}
+      <section
+        id="services"
+        className="py-20 bg-gradient-to-br from-amber-50 to-rose-50"
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-rose-800 mb-4">
+              Nos Services
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-rose-400 to-amber-400 rounded-full mx-auto mb-6"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            {/* Gâteaux personnalisés */}
+            <div className="group text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Cake className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-rose-800 mb-2">
+                Gâteaux personnalisés
+              </h3>
+              <p className="text-sm text-gray-600">
+                Sur mesure pour vos événements
+              </p>
+            </div>
+
+            {/* Cupcakes maison */}
+            <div className="group text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Coffee className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-rose-800 mb-2">
+                Cupcakes maison
+              </h3>
+              <p className="text-sm text-gray-600">Délicieux et colorés</p>
+            </div>
+
+            {/* Beignets */}
+            <div className="group text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg
+                  className="h-8 w-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-rose-800 mb-2">Beignets</h3>
+              <p className="text-sm text-gray-600">Croustillants et dorés</p>
+            </div>
+
+            {/* Buffets événementiels */}
+            <div className="group text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Gift className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-rose-800 mb-2">
+                Buffets événementiels
+              </h3>
+              <p className="text-sm text-gray-600">
+                Pour vos grandes occasions
+              </p>
+            </div>
+
+            {/* Livraison à Dakar */}
+            <div className="group text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Truck className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-rose-800 mb-2">
+                Livraison à Dakar
+              </h3>
+              <p className="text-sm text-gray-600">Service rapide et fiable</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages Clients */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-rose-800 mb-4">
+              Témoignages Clients
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-rose-400 to-amber-400 rounded-full mx-auto mb-6"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto relative">
+            <div className="bg-gradient-to-br from-rose-50 to-amber-50 rounded-2xl p-8 md:p-12 shadow-xl">
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  {[...Array(testimonials[currentTestimonial].rating)].map(
+                    (_, i) => (
+                      <Star
+                        key={i}
+                        className="h-6 w-6 text-yellow-400 fill-current"
+                      />
+                    ),
+                  )}
+                </div>
+
+                <blockquote className="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed">
+                  &quot;{testimonials[currentTestimonial].text}&quot;
+                </blockquote>
+
+                <cite className="text-lg font-semibold text-rose-800">
+                  – {testimonials[currentTestimonial].author}
+                </cite>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-center items-center mt-8 space-x-4">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={prevTestimonial}
+                className="rounded-full border-rose-300 hover:bg-rose-50"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+
+              <div className="flex space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentTestimonial(index)}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      index === currentTestimonial
+                        ? "bg-rose-500"
+                        : "bg-rose-200"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={nextTestimonial}
+                className="rounded-full border-rose-300 hover:bg-rose-50"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Contact / Commande */}
+      <section
+        id="contact"
+        className="py-20 bg-gradient-to-br from-rose-600 to-pink-700 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-10"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=80')",
+          }}
+        ></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center text-white">
+            <h2 className="text-4xl md:text-6xl font-serif font-bold mb-6">
+              Passer une commande ?
+            </h2>
+
+            <p className="text-xl md:text-2xl mb-4 opacity-90">
+              Contactez-moi directement sur WhatsApp pour vos commandes
+              personnalisées.
+            </p>
+
+            <p className="text-lg mb-12 opacity-80">
+              Téléphone : +221 77 427 82 79
+            </p>
+
+            <Button
+              onClick={() =>
+                window.open("https://wa.me/221774278279", "_blank")
+              }
+              className="bg-green-600 hover:bg-green-700 text-white text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 mb-8"
+            >
+              <MessageCircle className="mr-3 h-6 w-6" />
+              Commander Maintenant
+            </Button>
+
+            <div className="flex justify-center space-x-8 mt-12">
+              <div className="flex items-center text-white/80">
+                <Phone className="h-5 w-5 mr-2" />
+                <span>+221 77 427 82 79</span>
+              </div>
+              <div className="flex items-center text-white/80">
+                <MapPin className="h-5 w-5 mr-2" />
+                <span>Dakar, Sénégal</span>
               </div>
             </div>
           </div>
@@ -448,110 +485,59 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-amber-900 text-amber-100 py-12">
+      <footer className="bg-gradient-to-br from-rose-900 to-pink-900 text-rose-100 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-xl font-serif font-bold mb-4">
-                Mariama Pâtisserie
-              </h3>
-              <p className="mb-4">
-                Des délices sucrés faits maison avec passion et authenticité à
-                Dakar, Sénégal.
-              </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-amber-100 hover:text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
-                </a>
-                <a href="#" className="text-amber-100 hover:text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                  </svg>
-                </a>
-                <a href="#" className="text-amber-100 hover:text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Liens rapides</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link to="/" className="hover:underline">
-                    Accueil
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/products" className="hover:underline">
-                    Nos Produits
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/order" className="hover:underline">
-                    Commander
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to="/contact" className="hover:underline">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium mb-4">Heures d'ouverture</h3>
-              <ul className="space-y-2">
-                <li>Lundi - Vendredi: 9h - 19h</li>
-                <li>Samedi: 10h - 18h</li>
-                <li>Dimanche: Sur rendez-vous</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-amber-800 mt-8 pt-8 text-center">
-            <p>
-              &copy; {new Date().getFullYear()} Mariama Pâtisserie. Tous droits
-              réservés.
+          <div className="text-center">
+            <h3 className="text-2xl font-serif font-bold mb-4">
+              GOURMANDISE BY MARIE
+            </h3>
+            <p className="text-lg mb-6 opacity-90">
+              © 2025 GOURMANDISE BY MARIE
+              <br />
+              Fait avec amour à Dakar, Sénégal
             </p>
+
+            <div className="flex justify-center space-x-6 mb-8">
+              <a
+                href="https://wa.me/221774278279"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-rose-200 hover:text-white transform hover:scale-110 transition-all duration-300"
+              >
+                <MessageCircle className="h-6 w-6" />
+              </a>
+              <a
+                href="#"
+                className="text-rose-200 hover:text-white transform hover:scale-110 transition-all duration-300"
+              >
+                <Instagram className="h-6 w-6" />
+              </a>
+              <a
+                href="#"
+                className="text-rose-200 hover:text-white transform hover:scale-110 transition-all duration-300"
+              >
+                <Facebook className="h-6 w-6" />
+              </a>
+            </div>
+
+            <div className="border-t border-rose-800 pt-6">
+              <p className="text-sm opacity-75">
+                Pâtisseries artisanales • Fait main • Fait avec amour
+              </p>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* Bouton WhatsApp flottant */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={() => window.open("https://wa.me/221774278279", "_blank")}
+          className="bg-green-500 hover:bg-green-600 text-white rounded-full w-14 h-14 shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </Button>
+      </div>
     </div>
   );
 };
